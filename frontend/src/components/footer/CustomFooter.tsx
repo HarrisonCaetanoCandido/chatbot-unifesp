@@ -13,7 +13,7 @@ export default function CustomFooter() {
                         rel="noopener noreferrer"
                         className="m1-1 text-white underline hover:underline">
                         Christian Freitas</a>
-                    <span> e </span>
+                    <span className="text-white"> e </span>
                     <a
                         href="https://www.linkedin.com/in/hcandido/"
                         target="_blank"
@@ -29,7 +29,7 @@ export default function CustomFooter() {
                         className="m1-1 text-blue-400 hover:underline">
                         Clique aqui para acessar o repositório do projeto
                     </a>
-                    <span>.</span>
+                    <span className="text-white">.</span>
                 </span>
             </footer >
         </>
