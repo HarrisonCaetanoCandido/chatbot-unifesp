@@ -19,7 +19,7 @@ export default function CustomFooter() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="m1-1 text-white underline hover:underline">Harrison Caetano</a>
-                    <span>. </span>
+                    <span className="text-white">. </span>
                 </span>
                 <span>
                     <a
