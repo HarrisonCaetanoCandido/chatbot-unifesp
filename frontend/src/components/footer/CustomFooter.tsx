@@ -21,14 +21,9 @@ export default function CustomFooter() {
                         className="m1-1 text-white underline hover:underline">Harrison Caetano</a>
                     <span className="text-white">. </span>
                 </span>
-                <span>
-                    <a
-                        href="https://github.com/HarrisonCaetanoCandido/chatbot-unifesp"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="m1-1 text-blue-400 hover:underline">
-                        Clique aqui para acessar o repositório do projeto
-                    </a>
+                <span className="text-white">
+                    Consulte os<span> </span>
+                    <a href="/termos-de-uso" className="underline text-blue-500">Termos de Uso</a> e a <a href="/politica-de-privacidade" className="underline text-blue-500">Política de Privacidade</a>
                     <span className="text-white">.</span>
                 </span>
             </footer >

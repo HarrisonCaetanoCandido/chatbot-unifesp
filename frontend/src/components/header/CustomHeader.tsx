@@ -1,4 +1,5 @@
 import unifespLogo from '/unifesp-logo.png';
+import { Link } from 'react-router-dom';
 
 export default function CustomHeader() {
     return (
@@ -7,11 +8,13 @@ export default function CustomHeader() {
                 <div
                     className='flex w-[80%] items-center justify-between h-[70px]'>
                     <div className='flex justify-between items-center'>
-                        <img
-                            title='Unifesp Logo'
-                            rel='noopener noreferrer'
-                            className='unifesp-logo'
-                            src={unifespLogo} />
+                        <Link to="/">
+                            <img
+                                title='Unifesp Logo'
+                                rel='noopener noreferrer'
+                                className='unifesp-logo'
+                                src={unifespLogo} />
+                        </Link>
                     </div>
                     <a
                         href='https://dae-sjc.unifesp.br/minicursos/4-integralizando-o-bct'
