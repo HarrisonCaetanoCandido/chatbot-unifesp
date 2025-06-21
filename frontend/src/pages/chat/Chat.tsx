@@ -5,9 +5,10 @@ import CustomFooter from '../../components/footer/CustomFooter'
 import CustomHeader from '../../components/header/CustomHeader'
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'
+import { useStore } from '@/store';
 
 function Chat() {
-  let startedConvo: Boolean = true;
+  const { chatInitialized, setChatInitialized } = useStore();
 
   useEffect(() => {
     toast(
@@ -17,12 +18,14 @@ function Chat() {
         duration: 6000,
       }
     );
-  }, []);
+
+    setChatInitialized(chatInitialized);
+  }, [chatInitialized, setChatInitialized]);
 
   return (
-    <div className='flex flex-col h-screen overflow-hidden'>
+    <div className='flex flex-col h-screen overflow-hidden bg-[#1c1d25]'>
       <CustomHeader />
-      {startedConvo ? (<ConvoContainer />) : (<EmptyConvoContainer />)}
+      {chatInitialized ? (<ConvoContainer />) : (<EmptyConvoContainer />)}
       <CustomFooter />
     </div>
   )
