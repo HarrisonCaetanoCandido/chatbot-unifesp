@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { LuSend } from "react-icons/lu";
 
 export default function MessageBar() {
     const [message, setMessage] = useState("");
@@ -8,6 +10,10 @@ export default function MessageBar() {
             event.preventDefault();
             setMessage('');
         }
+    }
+
+    function handleSendButtonClick() {
+        setMessage('');
     }
 
     return (
@@ -23,6 +29,7 @@ export default function MessageBar() {
                             onChange={(e) => setMessage(e.target.value)}
                             onKeyPress={handleKeyPress}
                         />
+                        <Button onClick={() => handleSendButtonClick()}><LuSend /></Button>
                     </div>
                 </div>
             </div>
