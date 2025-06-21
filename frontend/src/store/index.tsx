@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { fromIntroToChatSlice } from './slices/fromIntroToChatSlice';
 
-interface StoreState {
+type StoreState = {
     chatInitialized: Boolean;
     setChatInitialized: (value: Boolean) => void;
 }
