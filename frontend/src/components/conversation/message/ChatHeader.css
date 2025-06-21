@@ -1,0 +1,16 @@
+.smallerScreenMenu {
+    visibility: hidden;
+    display: none;
+}
+
+@media screen and (max-width:620px) {
+    .biggerScreenMenu {
+        visibility: hidden;
+        display: none;
+    }
+
+    .smallerScreenMenu {
+        visibility: visible;
+        display: block;
+    }
+}
