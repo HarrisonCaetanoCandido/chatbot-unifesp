@@ -9,14 +9,10 @@ import { Button } from "@/components/ui/button";
 import { FaRobot } from "react-icons/fa";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { MdLibraryBooks } from "react-icons/md";
+import { useStore } from "@/store";
 
 export default function EmptyConvoContainer() {
-    let boolStartConvo: Boolean = false;
-
-    function createConvo() {
-        boolStartConvo = true;
-        alert("Convo started");
-    }
+    const { setChatInitialized } = useStore();
 
     return (
         <>
@@ -59,7 +55,7 @@ export default function EmptyConvoContainer() {
                             <CarouselPrevious className="text-white hover:text-white rounded-full p-2" />
                             <CarouselNext className="text-white hover:text-white rounded-full p-2" />
                         </Carousel>
-                        <Button onClick={createConvo}>Iniciar Chat</Button>
+                        <Button onClick={() => setChatInitialized(true)}>Iniciar Chat</Button>
                     </div>
                 </div>
             </section>
