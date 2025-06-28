@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 import { useStore } from '@/store';
 
 function Chat() {
-  const { chatInitialized, setChatInitialized } = useStore();
+  const { chatInitialized } = useStore();
 
   useEffect(() => {
     toast(
@@ -19,8 +19,7 @@ function Chat() {
       }
     );
 
-    setChatInitialized(chatInitialized);
-  }, [chatInitialized, setChatInitialized]);
+  }, []);
 
   return (
     <div className='flex flex-col h-screen overflow-hidden bg-[#1c1d25]'>

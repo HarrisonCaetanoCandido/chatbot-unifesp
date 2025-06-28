@@ -17,10 +17,22 @@ export default function ChatHeader() {
     let toggleExportChat: Boolean = false;
     const { setChatInitialized } = useStore();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const { selectedConvoId, convo } = useStore();
 
     const handleExportChat = () => {
-        if (!toggleExportChat)
+        if (!toggleExportChat) {
+            const dataToExport = convo.map((conversation) => {
+                if (conversation.id == selectedConvoId)
+                    return conversation;
+            });
+
+            const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "conversa.json";
+            link.click();
             toast.success("Chat exportado com sucesso!");
+        }
         else
             toast.error("O chat não pôde ser exportado!");
         toggleExportChat = !toggleExportChat;
@@ -40,11 +52,11 @@ export default function ChatHeader() {
         <>
             <div className='flex-1 border-1 w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 gap-4 border-gray-700'>
                 <div className="biggerScreenMenu w-full flex justify-between">
+                    <Button onClick={() => setChatInitialized(false)}>Ler a introdução</Button>
                     <div className="flex gap-5">
-                        <Button onClick={() => setChatInitialized(false)}>Ler a introdução</Button>
+                        <Button onClick={() => handleImportChatButton()}>Importar uma conversa</Button>
                         <Button onClick={() => handleExportChat()}>Exportar a conversa</Button>
                     </div>
-                    <Button onClick={() => handleImportChatButton()}>Importar uma conversa</Button>
                     <input
                         type="file"
                         ref={fileInputRef}
