@@ -1,12 +1,13 @@
 import { apiClient } from "@/lib/api-client";
 import { GET_CHAT_ROUTE } from "@/utils/constants";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useStore } from "@/store/index";
 import { MdCopyAll } from "react-icons/md";
 import toast from "react-hot-toast";
 
 export default function MessageContainer() {
     const { selectedConvoId, setConvoId, convo, setConvo } = useStore();
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const getChatConvo = async () => {
@@ -26,7 +27,13 @@ export default function MessageContainer() {
             }
         }
 
+        const scrollDownChat = async () => {
+            if(containerRef.current) 
+                containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
+
         getChatConvo();
+        scrollDownChat();
 
     }, []);
 
@@ -40,7 +47,7 @@ export default function MessageContainer() {
 
     return (
         <>
-            <div className="h-full flex-10 overflow-y-auto justify-center flex items-start">
+            <div ref={containerRef} className="h-full flex-10 overflow-y-auto justify-center flex items-start">
                 <div className=" min-h-full flex flex-col w-[90%] pt-5 pb-5">
                     {Array.isArray(convo) && convo.map((convo) => (
                         (convo.id == selectedConvoId) && (
