@@ -21,7 +21,7 @@ export default function EmptyConvoContainer() {
                     <div className="max-w-x1 w-full flex flex-col">
                         <Carousel>
                             <CarouselContent>
-                                <CarouselItem className="text-gray-700 text-sm flex flex-col items-center">
+                                <CarouselItem className="text-gray-700 text-sm flex flex-col items-center mb-5">
                                     <FaRobot size={50} /><br />
                                     <p>
                                         Olá, estudante! Seja bem-vindo(a) ao <strong>Chatbot Unifesp</strong>.<br />
@@ -30,7 +30,7 @@ export default function EmptyConvoContainer() {
                                         Dra. Daniela Leal Musa. <br />
                                         O objetivo é facilitar o entendimento de alguns dos principais processos internos
                                         vivenciados por estudantes de graduação do ICT-Unifesp ao longo de sua trajetória acadêmica.
-                                    </p><br />
+                                    </p>
                                 </CarouselItem>
                                 <CarouselItem className="text-gray-700 text-sm flex flex-col items-center">
                                     <MdLibraryBooks size={50} /><br />
