@@ -15,7 +15,7 @@ import './ChatHeader.css';
 
 export default function ChatHeader() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const { selectedConvoId, convo, setChatInitialized, setConvoId, setHasConvoInit } = useStore();
+    const { convo, setChatInitialized, setConvoId, setHasConvoInit } = useStore();
 
     const handleExportChat = () => {
         try {

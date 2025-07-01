@@ -54,10 +54,12 @@ export default function MessageContainer() {
     }
 
     const handleLikeComment = (msgId: string) => {
+        console.log('handleLikeComment: ', msgId);
         toast.success("Obrigado pelo feedback");
     }
 
     const handleDislikeComment = (msgId: string) => {
+        console.log('handleDislikeComment: ', msgId);
         toast.success("Obrigado pelo feedback");
     }
 
