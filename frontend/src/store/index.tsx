@@ -4,11 +4,13 @@ import { conversationSlice, type Conversation } from './slices/conversationSlice
 import { persist } from 'zustand/middleware';
 
 type AppState = {
+  hasConvoInit: boolean;
+  setHasConvoInit: (value: Boolean) => void;
   chatInitialized: boolean;
   setChatInitialized: (value: boolean) => void;
   selectedConvoId?: string;
   setConvoId: (convoId: string) => void;
-  convo: Conversation[];
+  convo?: Conversation;
   setConvo: (convo: Conversation) => void;
 };
 

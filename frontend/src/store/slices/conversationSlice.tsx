@@ -15,8 +15,10 @@ export type Conversation = {
 }
 
 export const conversationSlice = (set: any) => ({
+    hasConvoInit: false,
+    setHasConvoInit: (value: Boolean) => set({ hasConvoInit: value }),
     selectedConvoId: undefined,
     setConvoId: (convoId: string) => set({ selectedConvoId: convoId }),
-    convo: [],
+    convo: undefined,
     setConvo: (convo: Conversation) => set({ convo })
 });

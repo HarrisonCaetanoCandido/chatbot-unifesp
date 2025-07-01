@@ -11,41 +11,40 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import './ChatHeader.css'
+import './ChatHeader.css';
 
 export default function ChatHeader() {
-    let toggleExportChat: Boolean = false;
-    const { setChatInitialized } = useStore();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const { selectedConvoId, convo } = useStore();
+    const { selectedConvoId, convo, setChatInitialized, setConvoId, setHasConvoInit } = useStore();
 
     const handleExportChat = () => {
-        if (!toggleExportChat) {
-            const dataToExport = convo.map((conversation) => {
-                if (conversation.id == selectedConvoId)
-                    return conversation;
-            });
-
-            const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+        try {
+            const blob = new Blob([JSON.stringify(convo, null, 2)], { type: "application/json" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             link.download = "conversa.json";
             link.click();
             toast.success("Chat exportado com sucesso!");
-        }
-        else
+        } catch (err: any) {
             toast.error("O chat não pôde ser exportado!");
-        toggleExportChat = !toggleExportChat;
+        }
     }
 
     const handleImportChatButton = () => {
         fileInputRef.current?.click();
     }
 
-    const handleImportChat = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImportChat = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
-        if (file)
+        if (file) {
+            const toJson = await file.text();
+            const inputFile = JSON.parse(toJson);
+
+            setConvoId(inputFile[0].id);
+            setHasConvoInit(true);
+
             toast.success(`Arquivo selecionado: ${file.name}`);
+        }
     }
 
     return (

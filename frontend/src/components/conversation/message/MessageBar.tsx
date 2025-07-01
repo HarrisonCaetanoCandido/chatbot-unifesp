@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { LuSend } from "react-icons/lu";
+import { useStore } from '@/store/index';
 
 export default function MessageBar() {
     const [message, setMessage] = useState("");
+    const { setConvoId } = useStore();
 
     const handleKeyPress = (event: any) => {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             setMessage('');
+            setConvoId('1');
         }
     }
 
@@ -27,7 +30,7 @@ export default function MessageBar() {
                             placeholder="Pergunte algo..."
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyPress}
                         />
                         <Button onClick={() => handleSendButtonClick()}><LuSend /></Button>
                     </div>
