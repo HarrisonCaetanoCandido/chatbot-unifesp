@@ -12,6 +12,8 @@ type AppState = {
   setConvoId: (convoId: string) => void;
   convo?: Conversation;
   setConvo: (convo: Conversation) => void;
+  newMessage: boolean;
+  setNewMessage: (value: boolean) => void;
 };
 
 export const useStore = create<AppState>()(

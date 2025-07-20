@@ -20,5 +20,7 @@ export const conversationSlice = (set: any) => ({
     selectedConvoId: undefined,
     setConvoId: (convoId: string) => set({ selectedConvoId: convoId }),
     convo: undefined,
-    setConvo: (convo: Conversation) => set({ convo })
+    setConvo: (convo: Conversation) => set({ convo }),
+    newMessage: false,
+    setNewMessage: (value: boolean) => set({ newMessage: value })
 });

@@ -8,7 +8,7 @@ import { MdCopyAll } from "react-icons/md";
 import toast from "react-hot-toast";
 
 export default function MessageContainer() {
-    const { selectedConvoId, convo, setConvo, hasConvoInit, setHasConvoInit } = useStore();
+    const { newMessage, setNewMessage, selectedConvoId, convo, setConvo, hasConvoInit, setHasConvoInit } = useStore();
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -22,8 +22,10 @@ export default function MessageContainer() {
                         }
                     });
 
-                if (response.status === 200)
+                if (response.status === 200) {
                     setConvo(response.data);
+                    setNewMessage(false)
+                }
                 else
                     console.error(`Couldnt fetch data ${response.status}`);
 
@@ -43,7 +45,7 @@ export default function MessageContainer() {
         getChatConvo();
         scrollDownChat();
 
-    }, [selectedConvoId]); // aparentemente colocar os dois objetos como var externa ajudou o react a atualizar a conversa com mais facilidade, mas nao me parece bom
+    }, [selectedConvoId, setHasConvoInit, newMessage]); // aparentemente colocar os dois objetos como var externa ajudou o react a atualizar a conversa com mais facilidade, mas nao me parece bom
 
     const handleCopyText = (msg: string) => {
         navigator.clipboard.writeText(msg).then(() => {
