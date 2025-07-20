@@ -26,6 +26,13 @@ export default async function postChat(req: Request, res: Response) {
         const chat = JSON.parse(value);
         chat.metadata.push(newMessage);
 
+        /*
+        ESSE CONTROLLER PODE ENVIAR A MENSAGEM INICIAL DO USUARIO AO MODELO USANDO
+        OUTRO CONTROLLER E 
+        O MODELO PODE ENTAO USAR O CONTROLLER "addMessageToChat" PARA INSERIR A RESPOSTA
+        PARA O USUARIO
+        */
+
         await redis.set(key, JSON.stringify(chat));
 
         res.status(200).json([chat]);

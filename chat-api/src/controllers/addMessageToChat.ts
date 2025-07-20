@@ -24,6 +24,13 @@ export default async function addMessageToChat(req: Request, res: Response) {
 
         chat.metadata.push(newMessage);
 
+        /*
+        ESSE CONTROLLER PODE ENVIAR A NOVA MENSAGEM DO USUARIO AO MODELO USANDO
+        OUTRO CONTROLLER E 
+        O MODELO PODE ENTAO USAR ESSE MESMO CONTROLLER PARA INSERIR A RESPOSTA
+        PARA O USUARIO
+        */
+
         await redis.set(chatId, JSON.stringify(chat));
 
         return res.status(200).json({ message: 'Message added' });
