@@ -45,7 +45,7 @@ export default function EmptyConvoContainer() {
                                 <CarouselItem className="text-gray-700 text-sm flex flex-col items-center">
                                     <MdAccessTimeFilled size={50} /><br />
                                     <p>
-                                        Até o momento, nosso foco principal foi treinar um modelo de LLM para responder dúvidas
+                                        Até o momento, nosso foco principal foi realizar RAG (Retrieval-Augmented Generation) para responder dúvidas
                                         relacionadas à <strong>integralização do BCT</strong>, utilizando como base os documentos
                                         digitais disponibilizados publicamente pela DAE de São José dos Campos.<br />
                                         Você pode acessá-los clicando <a className="underline" href="https://dae-sjc.unifesp.br/minicursos/4-integralizando-o-bct">aqui</a>.
