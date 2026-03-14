@@ -32,8 +32,8 @@ def chat(body: ChatRequest):
 
 
     return ChatResponse(
-        pergunta=state["query"],
-        intencao=state.get("intention", "academic"),
-        contexto=state.get("context", ""),
-        resposta=state.get("answer", ""),
+        query=state["query"],
+        intention=state.get("intention", "academic"),
+        context=state.get("context", ""),
+        answer=state.get("answer", ""),
     )

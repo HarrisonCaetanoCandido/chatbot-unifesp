@@ -31,7 +31,10 @@ def make_agent(system_prompt: str):
 
         prompt = (
             f"{system_prompt}\n\n"
-            f"Use o contexto abaixo para responder à pergunta de forma precisa e direta.\n\n"
+            f"Use o contexto abaixo para responder à pergunta de forma precisa, direta, clara e humanizada.\n\n"
+            f"Como se estivesse conversando com um colega.\n\n"
+            f"Use no máximo 3 parágrafos curtos ou uma lista simples quando necessário.\n\n"
+            f"Não repita informações do contexto literalmente. Vá direto ao ponto.\n\n"
             f"Contexto:\n{context.strip()}\n\n"
             f"Pergunta: {query}\n"
             f"Resposta:"
