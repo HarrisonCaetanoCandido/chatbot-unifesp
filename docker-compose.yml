@@ -21,6 +21,7 @@ services:
         echo 'Aguardando Ollama iniciar...';
         until ollama list > /dev/null 2>&1; do
           echo 'Ollama ainda não está pronto, tentando novamente...';
+          sleep 2;
         done;
         sleep 3;
         echo 'Ollama pronto. Baixando modelos...';
