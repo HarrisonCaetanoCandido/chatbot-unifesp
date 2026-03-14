@@ -67,8 +67,6 @@ acad career admin   ← agentes especializados
 chatbot-unifesp/
 ├── frontend/               # React + Vite + TypeScript
 │   └── ...
-├── chat-api/               # Legado Node.js (deprecado)
-│   └── ...
 └── backend/
     ├── main.py             # Entrypoint FastAPI
     ├── graph.py            # Definição do grafo LangGraph
@@ -148,19 +146,6 @@ npm run dev
 ```
 
 > ⚠️ O frontend ainda não foi integrado ao novo backend FastAPI. A comunicação com a API está em desenvolvimento.
-
-### Backend legado (deprecado)
-
-```bash
-cd chat-api
-nvm use
-npm install
-npm run dev
-```
-
-> O `chat-api` (Node.js/Express) está sendo substituído pelo backend FastAPI e será removido em breve.
-
----
 
 ## QDRANT
 
