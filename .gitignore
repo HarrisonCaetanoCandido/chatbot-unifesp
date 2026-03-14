@@ -22,6 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.env
 
 # Node
 package-lock.json
+
+# Backend
+backend/.venv
+backend/__pycache__
+backend/*.pyc
+backend/agents/__pycache__
+backend/agents/*.pyc
+to_ingest.txt
+
