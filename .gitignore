@@ -29,9 +29,8 @@ package-lock.json
 
 # Backend
 backend/.venv
-backend/__pycache__
 backend/*.pyc
-backend/agents/__pycache__
+__pycache__
 backend/agents/*.pyc
 to_ingest.txt
 
