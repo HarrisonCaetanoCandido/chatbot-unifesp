@@ -1,4 +1,5 @@
 import requests 
+from utils.http import get_session
 from qdrant_client import QdrantClient
 from config import (
     OLLAMA_BASE_URL,
@@ -12,11 +13,14 @@ from typing import List
 
 qdrant = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
 
-def get_embedding(text: str) -> List[float]:
-    """Gera embedding via Ollama (nomic-embed-text)"""
-    response = requests.post(
+
+def get_embedding(text: str, timeout: int = 60) -> List[float]:
+    """Gera embedding via Ollama (nomic-embed-text)."""
+
+    response = get_session().post(
         f"{OLLAMA_BASE_URL}/api/embeddings",
-        json={"model": OLLAMA_EMBED_MODEL, "prompt": text}
+        json={"model": OLLAMA_EMBED_MODEL, "prompt": text},
+        timeout=timeout,
     )
     response.raise_for_status()
     return response.json()["embedding"]
@@ -25,7 +29,6 @@ def recover_context(query: str, top_k: int = TOP_K) -> str:
     """Recupera os chunks mais relevantes do Qdrant"""
     query_embedding = get_embedding(query)
 
-    # pensar se nao é uma boa explorar metricas de proximidade mais eficientes em tempo de execucao
     search_result = qdrant.query_points(
         collection_name=QDRANT_COLLECTION,
         query=query_embedding,
