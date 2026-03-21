@@ -1,18 +1,9 @@
-
-import sys
-from pathlib import Path
-
-project_root = Path(__file__).resolve().parents[2]
-sys.path.append(str(project_root))
-from backend.config import GATEWAY_PORT
-
-
 def request_runner(query: str):
     import requests
     import json
 
     response = requests.post(
-        f"http://localhost:{GATEWAY_PORT}/chat",
+        f"http://localhost:8000/chat",
         json={
             "query": query,
             "session_id": "123"
