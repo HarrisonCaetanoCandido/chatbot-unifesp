@@ -10,6 +10,7 @@ OLLAMA_LLM_TEMPERATURE = float(os.getenv("OLLAMA_LLM_TEMPERATURE", "0.2"))
 OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
 OLLAMA_GROQ_LLM_API_KEY = os.getenv("OLLAMA_GROQ_LLM_API_KEY", "")
 OLLAMA_GROQ_LLM_MODEL = os.getenv("OLLAMA_GROQ_LLM_MODEL", "llama-3.3-70b-versatile")
+OLLAMA_MAX_COMPLETION_TOKENS = int(os.getenv("OLLAMA_MAX_COMPLETION_TOKENS", "300"))
 # Se nao temos API KEY do Groq configurada, usamos o servidor Ollama local
 LOCAL_LLM = False if len(OLLAMA_GROQ_LLM_API_KEY) > 0 else True
 
@@ -22,6 +23,4 @@ QDRANT_OVERLAP = int(os.getenv("QDRANT_OVERLAP", "50"))
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 
 TOP_K = int(os.getenv("RAG_TOP_K", "3"))
-
-GATEWAY_PORT = int(os.getenv("GATEWAY_PORT", "8000"))
 

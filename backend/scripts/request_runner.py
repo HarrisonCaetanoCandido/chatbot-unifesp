@@ -3,11 +3,12 @@ def request_runner(query: str):
     import json
 
     response = requests.post(
-        f"http://localhost:8000/chat",
+        "http://localhost:8000/chat",
         json={
             "query": query,
             "session_id": "123"
-        }
+        },
+        timeout=360
     )
 
     print(f"Status: {response.status_code}")

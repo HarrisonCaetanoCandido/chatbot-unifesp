@@ -1,13 +1,13 @@
 import requests
 import time
+import threading
+from utils.http import get_session
 from rag import recover_context
-from config import OLLAMA_BASE_URL, OLLAMA_LLM_MODEL, OLLAMA_LLM_TEMPERATURE, OLLAMA_GROQ_LLM_API_KEY, OLLAMA_GROQ_LLM_MODEL, LOCAL_LLM
+from config import OLLAMA_BASE_URL, OLLAMA_LLM_MODEL, OLLAMA_LLM_TEMPERATURE, OLLAMA_GROQ_LLM_API_KEY, OLLAMA_GROQ_LLM_MODEL, LOCAL_LLM, OLLAMA_MAX_COMPLETION_TOKENS
 from models import GraphState
 from groq import Groq
 
 groq = Groq(api_key=OLLAMA_GROQ_LLM_API_KEY)
-
-SESSION = requests.Session()
 
 def _call_ollama(prompt: str, system_prompt: str,stream: bool = False, timeout: int = 300) -> str:
     """Chama o modelo LLM via Ollama e retorna a resposta."""
@@ -23,7 +23,7 @@ def _call_ollama(prompt: str, system_prompt: str,stream: bool = False, timeout: 
                 {"role": "user", "content": prompt}
             ],
             temperature=OLLAMA_LLM_TEMPERATURE,
-            max_completion_tokens=300
+            max_completion_tokens=OLLAMA_MAX_COMPLETION_TOKENS
         ) 
         elapsed = time.perf_counter() - start
         print(f"[DEBUG] Groq /api/generate elapsed={elapsed:.2f}s")
@@ -37,8 +37,13 @@ def _call_ollama(prompt: str, system_prompt: str,stream: bool = False, timeout: 
             "options": {"temperature": OLLAMA_LLM_TEMPERATURE},
         }
 
+        # Incluir sys_prompt quando fornecido para que o server local ollama
+        # receba o mesmo contexto de sistema usado no caminho Groq.
+        if system_prompt:
+            payload["system"] = system_prompt
+
         start = time.perf_counter()
-        response = SESSION.post(f"{OLLAMA_BASE_URL}/api/generate", json=payload, timeout=timeout)
+        response = get_session().post(f"{OLLAMA_BASE_URL}/api/generate", json=payload, timeout=timeout)
         elapsed = time.perf_counter() - start
         print(f"[DEBUG] Ollama /api/generate elapsed={elapsed:.2f}s status={response.status_code}")
 

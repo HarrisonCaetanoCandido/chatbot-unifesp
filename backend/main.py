@@ -4,9 +4,8 @@ from models import ChatRequest, ChatResponse
 from graph import botifesp_graph
 import threading
 from agents.base import warmup_model
-from config import GATEWAY_PORT
 
-app = FastAPI(title="CHATBOT UNIFESP API", version="0.1.0", PORT=GATEWAY_PORT)
+app = FastAPI(title="CHATBOT UNIFESP API", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
