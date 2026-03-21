@@ -23,12 +23,12 @@ acad career admin   ← agentes especializados
    └────┴────┘
         │
         ▼
-   RAG Pipeline
-   ┌──────────────────────────────┐
-   │  Ollama (nomic-embed-text)   │  ← geração de embeddings
-   │  Qdrant                      │  ← busca vetorial nos docs UNIFESP
-   │  Ollama (llama3.2)           │  ← geração da resposta final
-   └──────────────────────────────┘
+  RAG Pipeline
+  ┌──────────────────────────────┐
+  │  Ollama (nomic-embed-text)   │  ← geração de embeddings
+  │  Qdrant                      │  ← busca vetorial nos docs UNIFESP
+  │  Ollama (llama3.2) or Groq   │  ← geração da resposta final (llm local ou Groq via API)
+  └──────────────────────────────┘
         │
         ▼
      Redis  ← armazenamento de sessão
@@ -41,9 +41,9 @@ acad career admin   ← agentes especializados
 | Frontend | React + Vite + TypeScript | Interface do usuário |
 | API Gateway | FastAPI | Recebe requisições e aciona o grafo |
 | Orquestração | LangGraph | Roteamento e execução dos agentes |
-| Agente Academic | Llama 3.2 via Ollama | Dúvidas sobre disciplinas, grade, TCC |
-| Agente Career | Llama 3.2 via Ollama | Estágio, mercado de trabalho, concursos |
-| Agente Admin | Llama 3.2 via Ollama | Secretaria, documentos, prazos |
+| Agente Academic | Llama 3.2 via Ollama or Groq (remoto) | Dúvidas sobre disciplinas, grade, TCC |
+| Agente Career | Llama 3.2 via Ollama or Groq (remoto) | Estágio, mercado de trabalho, concursos |
+| Agente Admin | Llama 3.2 via Ollama or Groq (remoto) | Secretaria, documentos, prazos |
 | Embeddings | nomic-embed-text via Ollama | Vetorização das queries |
 | Vector Store | Qdrant | Busca semântica nos documentos UNIFESP |
 | Sessão | Redis | Cache de mensagens por sessão |
@@ -75,7 +75,7 @@ chatbot-unifesp/
     ├── config.py           # Variáveis de ambiente
     ├── requirements.txt
     └── agents/
-        ├── base.py         # Factory make_agent + chamada ao Ollama
+        ├── base.py         # Factory make_agent + chamada à LLM
         ├── router.py       # Classificação de intenção + route_decision
         ├── academic.py     # Agente de vida acadêmica
         ├── career.py       # Agente de carreira
@@ -92,12 +92,16 @@ chatbot-unifesp/
 - Qdrant rodando (Docker recomendado)
 - Redis rodando (Docker recomendado)
 
+- (Opcional) Groq: serviço remoto de LLM. Se configurar `OLLAMA_GROQ_LLM_API_KEY`, o backend usará o Groq como provedor remoto; caso contrário, espera um Ollama local em `OLLAMA_BASE_URL`.
+
 ### Modelos Ollama necessários
 
 ```bash
 ollama pull llama3.2
 ollama pull nomic-embed-text
 ```
+
+Se pretende usar o Groq como provedor remoto em vez do servidor Ollama local, configure `OLLAMA_GROQ_LLM_API_KEY` e `OLLAMA_GROQ_LLM_MODEL` no arquivo `.env` (veja abaixo).
 
 ---
 
@@ -108,7 +112,12 @@ Crie um arquivo `.env` na pasta `backend/` com base nas variáveis abaixo:
 ```env
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_LLM_MODEL=llama3.2
+OLLAMA_LLM_TEMPERATURE=0.2
 OLLAMA_EMBED_MODEL=nomic-embed-text
+
+# Opcional: usar Groq como provedor remoto (se setado, Groq é usado)
+OLLAMA_GROQ_LLM_API_KEY=
+OLLAMA_GROQ_LLM_MODEL=llama-3.3-70b-versatile
 
 QDRANT_URL=http://localhost:6333
 QDRANT_API_KEY=
@@ -117,6 +126,9 @@ QDRANT_COLLECTION=unifesp_docs
 REDIS_URL=redis://localhost:6379
 
 RAG_TOP_K=3
+
+# Porta do gateway FastAPI (padrão: 8000)
+GATEWAY_PORT=8000
 ```
 
 ---
