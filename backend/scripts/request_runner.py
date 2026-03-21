@@ -1,18 +1,28 @@
 def request_runner(query: str):
-    import requests
     import json
+    import sys
+    from pathlib import Path
+    import requests
 
-    response = requests.post(
-        "http://localhost:8000/chat",
-        json={
-            "query": query,
-            "session_id": "123"
-        },
-        timeout=360
-    )
+    project_root = Path(__file__).resolve().parents[2]
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
 
-    print(f"Status: {response.status_code}")
-    print(json.dumps(response.json(), indent=2, ensure_ascii=False))
+    from backend.utils.http import get_session
+
+    try:
+        response = get_session().post(
+            "http://localhost:8000/chat",
+            json={"query": query, "session_id": "123"},
+            timeout=360,
+        )
+        response.raise_for_status()
+        print(f"Status: {response.status_code}")
+        print(json.dumps(response.json(), indent=2, ensure_ascii=False))
+    except requests.Timeout:
+        print("[ERRO] Requisição excedeu o tempo limite.", file=sys.stderr)
+    except requests.RequestException as e:
+        print(f"[ERRO] Falha na requisição: {e}", file=sys.stderr)
 
 if __name__ == "__main__":
     import argparse
